@@ -1,0 +1,4 @@
+Bundle-Name: Sample2
+Bundle-SymbolicName: com.lifeary.felix.sample
+Bundle-Version: 1.0.0
+Export-Package: com.lifeary.felix.sample.constants
