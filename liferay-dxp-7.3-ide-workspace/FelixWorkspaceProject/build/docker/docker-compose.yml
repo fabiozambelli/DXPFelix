@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  felix-db:
+    image: postgres:12.12
+    container_name: felix-db
+    networks:
+      - network-felix-dxp
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./services/postgres/config/create-felix.sql:/docker-entrypoint-initdb.d/create-felix.sql
+      - /volume-felix-db:/var/lib/postgresql/data
+  felix-dxp:
+    build: .
+    command: ["-c", "/usr/local/bin/wait-for.sh felix-db:5432"]
+    container_name: felix-dxp
+    depends_on:
+      - felix-db
+    networks: 
+      - network-felix-dxp
+    ports: 
+      - 8080:8080
+      - 127.0.0.1:11311:11311
+    volumes:
+      - volume-felix-dxp-data:/opt/liferay/liferay-dxp-7.3.10-ga1/data
+      - volume-felix-dxp-work:/opt/liferay/liferay-dxp-7.3.10-ga1/works
+networks:
+  network-felix-dxp:
+    name: network-felix-dxp
+volumes:
+  volume-felix-db:
+  volume-felix-dxp-data:
+  volume-felix-dxp-work:
