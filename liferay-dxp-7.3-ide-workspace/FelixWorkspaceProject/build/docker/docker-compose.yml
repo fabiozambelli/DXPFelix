@@ -30,7 +30,6 @@ services:
       - JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n"
     volumes:
       - volume-felix-dxp-data:/opt/liferay/liferay-dxp-7.3.10-ga1/data
-      - volume-felix-dxp-work:/opt/liferay/liferay-dxp-7.3.10-ga1/works
       - ./deploy:/mnt/liferay/deploy
 networks:
   network-felix-dxp:
