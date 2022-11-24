@@ -24,7 +24,10 @@ services:
       - network-felix-dxp
     ports: 
       - 8080:8080
+      - 8000:8000
       - 127.0.0.1:11311:11311
+    environment:
+      - JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n"
     volumes:
       - volume-felix-dxp-data:/opt/liferay/liferay-dxp-7.3.10-ga1/data
       - volume-felix-dxp-work:/opt/liferay/liferay-dxp-7.3.10-ga1/works
